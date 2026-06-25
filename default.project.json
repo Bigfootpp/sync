@@ -1,0 +1,6 @@
+{
+  "name": "sync",
+  "tree": {
+		"$path": "src"
+	}
+}

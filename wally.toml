@@ -1,0 +1,23 @@
+[package]
+name = "bigfootpp/sync"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+license = "MIT"
+authors = ["Bigfoot"]
+description = "A lightweight animation and motion framework for Luau."
+repository = "https://github.com/Bigfootpp/lucid"
+realm = "shared"
+exclude = ["**"]
+
+include = [
+    "default.project.json",
+    "src",
+    "src/**",
+    "LICENSE",
+    "README.md",
+    "wally.toml"
+]
+
+[dependencies]
+
+[dev-dependencies]

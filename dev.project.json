@@ -1,0 +1,24 @@
+{
+  "name": "Sync",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Tests": {
+        "$path": "tests"
+      },
+      "Packages": {
+        "$className": "Folder",
+        "Sync": {
+          "$path": "src"
+        }
+      }
+    },
+
+    "ServerScriptService": {
+      "Runner": {
+        "$path": "runner"
+      }
+    }
+  }
+}
