@@ -3,7 +3,7 @@ local Types = require(script.Parent.Types)
 local Blend1DSpace = {}
 Blend1DSpace.__index = Blend1DSpace
 
-local MINIMUM_WEIGHT = 0.1 -- 0.1 because roblox automatically stop the animation when the weight is 0
+local MINIMUM_WEIGHT = 0.1 -- Animation not stopped when weight != 0
 local DEFAULT_FADE_TIME = 0.1
 
 function Blend1DSpace.new(
