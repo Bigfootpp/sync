@@ -9,11 +9,26 @@ export type BaseAnimation = {
 
 export type AnimationClass = {
     track: AnimationTrack,
-
     New: (animation: AnimationTrack) -> AnimationClass,
     SetLooped: (self: AnimationClass, looped: boolean) -> (),
     GetLength: (self: AnimationClass) -> number,
     OnEnd: (self: AnimationClass) -> RBXScriptSignal,
 } & BaseAnimation
+
+export type Pose = {
+	x: number,
+	animation: BaseAnimation,
+}
+
+export type BlendSpace1DClass = {
+	poses: {Pose},
+	fadeTime: number,
+	playing: boolean,
+	new: (poses: {Pose}, fadeTime: number?) -> BlendSpace1DClass,
+	Update: (self: BlendSpace1DClass, x: number) -> (),
+	Play: (self: BlendSpace1DClass, fadeTime: number?, weight: number?, speed: number?) -> (),
+	Stop: (self: BlendSpace1DClass, fadeTime: number?) -> (),
+	IsPlaying: (self: BlendSpace1DClass) -> boolean,
+}
 
 return {}
