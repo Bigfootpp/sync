@@ -54,9 +54,9 @@ function Animation:GetLength(): number
 	return object.track.Length
 end
 
-function Animation:OnEnd(callback): RBXScriptConnection
+function Animation:OnEnd(callback): RBXScriptSignal
 	local object = self :: Types.AnimationClass
-	return object.track.Stopped:Connect(callback)
+	return object.track.Stopped
 end
 
 return Animation
