@@ -84,5 +84,14 @@ export type StateManagerClass = {
 	Play: (self: StateManagerClass) -> (),
 }
 
+export type StateMachineClass = {
+	startingStateName: string,
+	stateManager: StateManagerClass,
+
+    New: (stateManager: StateManagerClass, startingStateName: string) -> StateMachineClass,
+    Update: (dt: number) -> (),
+    Reset: () -> ()
+}
+
 
 return {}
