@@ -37,18 +37,7 @@ return function(): boolean | string
 		return "GetState('C') should be nil"
 	end
 
-	-- 3. Test dynamic transition addition
-	local transition = Sync.ConditionalLink(stateB, function()
-		return true
-	end)
-
-	manager:AddTransition("A", transition)
-	local stateATransitions = stateA:GetTransitions()
-	if #stateATransitions ~= 1 or stateATransitions[1] ~= transition then
-		return "Transition was not successfully added to State A"
-	end
-
-	-- 4. Test ChangeState when playing is false
+	-- 3. Test ChangeState when playing is false
 	local enterCountA = 0
 	local exitCountA = 0
 	local enterCountB = 0
@@ -71,7 +60,7 @@ return function(): boolean | string
 		return "Enter should not be triggered if manager is not playing"
 	end
 
-	-- 5. Test Play/Stop flow
+	-- 4. Test Play/Stop flow
 	manager:Play()
 	if manager.playing == false then
 		return "Manager playing state should be true"

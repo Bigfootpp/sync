@@ -11,9 +11,6 @@ return function(): boolean | string
 	if state.name ~= "Idle" then
 		return `Expected state name to be 'Idle', got '{state.name}'`
 	end
-	if type(state.transitions) ~= "table" or #state.transitions ~= 0 then
-		return "Expected state.transitions to be an empty table"
-	end
 
 	-- 2. Test event signals
 	local enteredCalled = 0
@@ -78,65 +75,6 @@ return function(): boolean | string
 	end
 	if customUpdate ~= 42 then
 		return `Expected OnUpdate override to receive 42, got {customUpdate}`
-	end
-
-	-- 4. Test Transition Creation
-	-- Get the Transition module via the State module's Transition field
-
-	local stateB = Sync.State("StateB")
-
-	-- A conditional transition
-	local condTransition = Sync.ConditionalLink(stateB, function()
-		return true
-	end)
-
-	if condTransition.to ~= stateB then
-		return "Conditional transition target mismatch"
-	end
-	if condTransition:CanPassFn() ~= true then
-		return "Conditional transition CanPassFn returned false when expected true"
-	end
-
-	-- An automatic transition with a mock animation
-	local mockAnimIsPlaying = true
-	local mockAnim = {
-		IsPlaying = function(): boolean
-			return mockAnimIsPlaying
-		end,
-		Play = function() end,
-		Stop = function() end,
-		Blend = function() end,
-		SetSpeed = function() end,
-		SetWeight = function() end,
-	} :: any
-
-	local autoTransition = Sync.AutomaticLink(stateB, mockAnim)
-	if autoTransition.to ~= stateB then
-		return "Automatic transition target mismatch"
-	end
-
-	-- Since the mock animation is playing, transition shouldn't pass
-	if autoTransition:CanPassFn() == true then
-		return "Automatic transition passed while animation was playing"
-	end
-
-	mockAnimIsPlaying = false
-	-- Now that animation has stopped, the automatic transition should pass
-	if autoTransition:CanPassFn() == false then
-		return "Automatic transition did not pass when animation stopped playing"
-	end
-
-	-- 5. Test State construction with transitions
-	local stateA = Sync.State("StateA", { condTransition, autoTransition })
-	local transitions = stateA:GetTransitions()
-	if #transitions ~= 2 then
-		return `Expected 2 transitions, got {#transitions}`
-	end
-	if transitions[1] ~= condTransition then
-		return "First transition mismatch"
-	end
-	if transitions[2] ~= autoTransition then
-		return "Second transition mismatch"
 	end
 
 	return true

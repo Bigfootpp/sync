@@ -41,7 +41,7 @@ return function(): boolean | string
 	-- 1. Create a mock track and construct Sync.Animation
 	local mockTrack = createMockTrack()
 	local anim = Sync.Animation(mockTrack :: any)
-
+	
 	if not anim then
 		return "Failed to construct Animation wrapper"
 	end
