@@ -67,7 +67,7 @@ function Blend1DSpace:Play(fadeTime: number?, weight: number?, speed: number?)
 	local object = self :: Types.BlendSpace1DClass
 	
 	for _, pose in ipairs(object.poses) do
-		pose.animation:Play(fadeTime or DEFAULT_FADE_TIME, 0, speed or 1)
+		pose.animation:Play(fadeTime or DEFAULT_FADE_TIME, MINIMUM_WEIGHT, speed or 1)
 	end
 	
 	object.playing = true
