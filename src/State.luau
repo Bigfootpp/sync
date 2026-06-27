@@ -10,7 +10,7 @@ State.__index = State
 
 function State.New(
 	name: string,
-	transitions: {Types.TransitionClass}?
+	transitions: {Types.LinkClass}?
 ): Types.StateClass
 	local self = setmetatable({}, State) :: Types.StateClass
 	self.name = name
@@ -24,7 +24,7 @@ function State.New(
 	return self
 end
 
-function State:GetTransitions(): {Types.TransitionClass}
+function State:GetTransitions(): {Types.LinkClass}
 	local stateObject = self :: Types.StateClass
 	
 	return stateObject.transitions
@@ -62,32 +62,5 @@ end
 function State:OnUpdate(dt: number)
 	-- To override
 end
-
-function Transition._New(to: Types.StateClass, canPassFn: () -> boolean): Types.TransitionClass 
-	local self = setmetatable({}, Transition) :: Types.TransitionClass
-
-	self.to = to
-	self._canPassFn = canPassFn
-
-	return self
-end
-
-function Transition.CreateConditionalTransition(to: Types.StateClass, canPassFn: () -> boolean): Types.TransitionClass
-	return Transition._New(to, canPassFn)
-end
-
-function Transition.CreateAutomaticTransition(to: Types.StateClass, anim: Types.BaseAnimation) 
-	return Transition._New(to, function(): boolean 
-		return not anim:IsPlaying()
-	end)
-end
-
-function Transition:CanPassFn(): boolean
-	local object = self :: Types.TransitionClass
-
-	return object._canPassFn()
-end
-
-State.Transition = Transition
 
 return State

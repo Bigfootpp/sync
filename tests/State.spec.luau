@@ -82,13 +82,11 @@ return function(): boolean | string
 
 	-- 4. Test Transition Creation
 	-- Get the Transition module via the State module's Transition field
-	local StateModule = require(ReplicatedStorage.Packages.Sync.State)
-	local Transition = StateModule.Transition
 
 	local stateB = Sync.State("StateB")
 
 	-- A conditional transition
-	local condTransition = Transition.CreateConditionalTransition(stateB, function()
+	local condTransition = Sync.ConditionalLink(stateB, function()
 		return true
 	end)
 
@@ -112,7 +110,7 @@ return function(): boolean | string
 		SetWeight = function() end,
 	} :: any
 
-	local autoTransition = Transition.CreateAutomaticTransition(stateB, mockAnim)
+	local autoTransition = Sync.AutomaticLink(stateB, mockAnim)
 	if autoTransition.to ~= stateB then
 		return "Automatic transition target mismatch"
 	end

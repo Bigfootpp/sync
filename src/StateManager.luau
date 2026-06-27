@@ -39,7 +39,7 @@ function StateManager:GetStates(): {Types.StateClass}
     return object.states
 end
 
-function StateManager:AddTransition(stateName: string, transition: Types.TransitionClass) 
+function StateManager:AddTransition(stateName: string, transition: Types.LinkClass) 
     local object = self :: Types.StateManagerClass
 
     local class = object:GetState(stateName)
@@ -55,7 +55,7 @@ function StateManager:GetCurrentState(): Types.StateClass?
     return object.currentState
 end
 
-function StateManager:GetCurrentStateTransitions(): {Types.TransitionClass}?
+function StateManager:GetCurrentStateTransitions(): {Types.LinkClass}?
     local object = self :: Types.StateManagerClass
 
     if not object.currentState then return nil end

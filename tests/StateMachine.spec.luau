@@ -11,10 +11,8 @@ return function(): boolean | string
 	manager:RegisterState(stateB)
 
 	local transitionFlag = false
-	local StateModule = require(ReplicatedStorage.Packages.Sync.State)
-	local Transition = StateModule.Transition
 
-	local transition = Transition.CreateConditionalTransition(stateB, function()
+	local transition = Sync.ConditionalLink(stateB, function()
 		return transitionFlag
 	end)
 	manager:AddTransition("A", transition)

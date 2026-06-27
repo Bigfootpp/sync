@@ -38,9 +38,7 @@ return function(): boolean | string
 	end
 
 	-- 3. Test dynamic transition addition
-	local StateModule = require(ReplicatedStorage.Packages.Sync.State)
-	local Transition = StateModule.Transition
-	local transition = Transition.CreateConditionalTransition(stateB, function()
+	local transition = Sync.ConditionalLink(stateB, function()
 		return true
 	end)
 

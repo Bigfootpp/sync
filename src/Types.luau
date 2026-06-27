@@ -36,27 +36,26 @@ export type BlendSpace1DClass = {
 	IsPlaying: (self: BlendSpace1DClass) -> boolean,
 }
 
-export type TransitionClass = {
+export type LinkClass = {
 	to: StateClass,
 	_canPassFn: () -> boolean,
 
-	_New: (to: StateClass, canPassFn: () -> boolean) -> TransitionClass,
-	CreateConditionnalTransition: (to: StateClass, canPassFn: () -> boolean) -> TransitionClass,
-	CreateAutomaticTransition: (to: StateClass, anim: BaseAnimation) -> TransitionClass,
+	CreateConditionnalTransition: (to: StateClass, canPassFn: () -> boolean) -> LinkClass,
+	CreateAutomaticTransition: (to: StateClass, anim: BaseAnimation) -> LinkClass,
 
-	CanPassFn: (self: TransitionClass) -> boolean,
+	CanPassFn: (self: LinkClass) -> boolean,
 }
 
 export type StateClass = {
 	name: string,
-	transitions: {TransitionClass},
+	transitions: {LinkClass},
 
-    New: (name: string, transition: {TransitionClass}) -> StateClass,
+    New: (name: string, transition: {LinkClass}) -> StateClass,
 	Entered: Signal<>,
 	Exited: Signal<>,
 	Updated: Signal<number>,
 
-	GetTransitions: (self: StateClass) -> {TransitionClass},
+	GetTransitions: (self: StateClass) -> {LinkClass},
 	Enter: (self: StateClass) -> (),
 	Exit: (self: StateClass) -> (),
 	Update: (self: StateClass, dt: number) -> (),
@@ -75,9 +74,9 @@ export type StateManagerClass = {
 	RegisterState: (self: StateManagerClass, state: StateClass) -> (),
 	GetState: (self: StateManagerClass, stateName: string) -> StateClass?,
 	GetStates: (self: StateManagerClass) -> {StateClass},
-	AddTransition: (self: StateManagerClass, stateName: string, transition: TransitionClass) -> (),
+	AddTransition: (self: StateManagerClass, stateName: string, transition: LinkClass) -> (),
 	GetCurrentState: (self: StateManagerClass) -> StateClass?,
-	GetCurrentStateTransitions: (self: StateManagerClass) -> {TransitionClass}?,
+	GetCurrentStateTransitions: (self: StateManagerClass) -> {LinkClass}?,
 	ChangeState: (self: StateManagerClass, stateName: string) -> (),
 	Update: (self: StateManagerClass, dt: number) -> (),
 	Stop: (self: StateManagerClass) -> (),
