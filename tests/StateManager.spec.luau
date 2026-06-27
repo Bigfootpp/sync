@@ -44,7 +44,7 @@ return function(): boolean | string
 		return true
 	end)
 
-	manager:AddTransitions("A", transition)
+	manager:AddTransition("A", transition)
 	local stateATransitions = stateA:GetTransitions()
 	if #stateATransitions ~= 1 or stateATransitions[1] ~= transition then
 		return "Transition was not successfully added to State A"

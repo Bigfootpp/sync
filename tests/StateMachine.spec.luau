@@ -17,7 +17,7 @@ return function(): boolean | string
 	local transition = Transition.CreateConditionalTransition(stateB, function()
 		return transitionFlag
 	end)
-	manager:AddTransitions("A", transition)
+	manager:AddTransition("A", transition)
 
 	-- 2. Construct StateMachine
 	local sm = Sync.StateMachine(manager, "A")

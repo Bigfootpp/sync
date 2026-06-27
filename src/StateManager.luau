@@ -39,7 +39,7 @@ function StateManager:GetStates(): {Types.StateClass}
     return object.states
 end
 
-function StateManager:AddTransitions(stateName: string, transition: Types.TransitionClass) 
+function StateManager:AddTransition(stateName: string, transition: Types.TransitionClass) 
     local object = self :: Types.StateManagerClass
 
     local class = object:GetState(stateName)

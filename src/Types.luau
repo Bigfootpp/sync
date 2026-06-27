@@ -75,7 +75,7 @@ export type StateManagerClass = {
 	RegisterState: (self: StateManagerClass, state: StateClass) -> (),
 	GetState: (self: StateManagerClass, stateName: string) -> StateClass?,
 	GetStates: (self: StateManagerClass) -> {StateClass},
-	AddTransitions: (self: StateManagerClass, stateName: string, transition: TransitionClass) -> (),
+	AddTransition: (self: StateManagerClass, stateName: string, transition: TransitionClass) -> (),
 	GetCurrentState: (self: StateManagerClass) -> StateClass?,
 	GetCurrentStateTransitions: (self: StateManagerClass) -> {TransitionClass}?,
 	ChangeState: (self: StateManagerClass, stateName: string) -> (),
