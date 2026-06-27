@@ -66,4 +66,23 @@ export type StateClass = {
 	OnUpdate: (self: StateClass, dt: number) -> (),
 }
 
+export type StateManagerClass = {
+	states: {StateClass},
+	playing: boolean,
+	currentState: StateClass?,
+
+	New: () -> StateManagerClass,
+	RegisterState: (self: StateManagerClass, state: StateClass) -> (),
+	GetState: (self: StateManagerClass, stateName: string) -> StateClass?,
+	GetStates: (self: StateManagerClass) -> {StateClass},
+	AddTransitions: (self: StateManagerClass, stateName: string, transition: TransitionClass) -> (),
+	GetCurrentState: (self: StateManagerClass) -> StateClass?,
+	GetCurrentStateTransitions: (self: StateManagerClass) -> {TransitionClass}?,
+	ChangeState: (self: StateManagerClass, stateName: string) -> (),
+	Update: (self: StateManagerClass, dt: number) -> (),
+	Stop: (self: StateManagerClass) -> (),
+	Play: (self: StateManagerClass) -> (),
+}
+
+
 return {}
