@@ -89,8 +89,8 @@ export type StateMachineClass = {
 	stateManager: StateManagerClass,
 
     New: (stateManager: StateManagerClass, startingStateName: string) -> StateMachineClass,
-    Update: (dt: number) -> (),
-    Reset: () -> ()
+    Update: (self: StateMachineClass, dt: number) -> (),
+    Reset: (self: StateMachineClass) -> ()
 }
 
 
