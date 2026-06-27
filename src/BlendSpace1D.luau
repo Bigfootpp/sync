@@ -6,7 +6,7 @@ Blend1DSpace.__index = Blend1DSpace
 local MINIMUM_WEIGHT = 0.1 -- Animation not stopped when weight != 0
 local DEFAULT_FADE_TIME = 0.1
 
-function Blend1DSpace.new(
+function Blend1DSpace.New(
 	poses: {Types.Pose},
 	fadeTime: number?
 ): Types.BlendSpace1DClass

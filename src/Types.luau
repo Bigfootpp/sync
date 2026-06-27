@@ -29,7 +29,7 @@ export type BlendSpace1DClass = {
 	poses: {Pose},
 	fadeTime: number,
 	playing: boolean,
-	new: (poses: {Pose}, fadeTime: number?) -> BlendSpace1DClass,
+	New: (poses: {Pose}, fadeTime: number?) -> BlendSpace1DClass,
 	Update: (self: BlendSpace1DClass, x: number) -> (),
 	Play: (self: BlendSpace1DClass, fadeTime: number?, weight: number?, speed: number?) -> (),
 	Stop: (self: BlendSpace1DClass, fadeTime: number?) -> (),
