@@ -4,6 +4,10 @@ A lightweight animation and motion framework for Luau and Roblox.
 
 ---
 
+> [!WARNING]
+> This project is currently in **Beta**. Expect breaking changes and use with caution.
+
+
 ## Installation
 
 Add this to your `wally.toml` dependencies:
