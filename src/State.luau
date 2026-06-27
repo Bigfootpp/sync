@@ -72,7 +72,7 @@ function Transition._New(to: Types.StateClass, canPassFn: () -> boolean): Types.
 	return self
 end
 
-function Transition.CreateConditionnalTransition(to: Types.StateClass, canPassFn: () -> boolean): Types.TransitionClass
+function Transition.CreateConditionalTransition(to: Types.StateClass, canPassFn: () -> boolean): Types.TransitionClass
 	return Transition._New(to, canPassFn)
 end
 

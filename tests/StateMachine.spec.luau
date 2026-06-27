@@ -14,7 +14,7 @@ return function(): boolean | string
 	local StateModule = require(ReplicatedStorage.Packages.Sync.State)
 	local Transition = StateModule.Transition
 
-	local transition = Transition.CreateConditionnalTransition(stateB, function()
+	local transition = Transition.CreateConditionalTransition(stateB, function()
 		return transitionFlag
 	end)
 	manager:AddTransitions("A", transition)

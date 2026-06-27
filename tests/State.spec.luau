@@ -88,7 +88,7 @@ return function(): boolean | string
 	local stateB = Sync.State("StateB")
 
 	-- A conditional transition
-	local condTransition = Transition.CreateConditionnalTransition(stateB, function()
+	local condTransition = Transition.CreateConditionalTransition(stateB, function()
 		return true
 	end)
 
