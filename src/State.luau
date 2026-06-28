@@ -2,9 +2,6 @@
 local Types = require(script.Parent.Types)
 local Signal = require(script.Parent.Utils.Signal)
 
-local Transition = {}
-Transition.__index = Transition
-
 local State = {}
 State.__index = State
 
