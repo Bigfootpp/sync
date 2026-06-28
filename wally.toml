@@ -5,7 +5,7 @@ registry = "https://github.com/UpliftGames/wally-index"
 license = "MIT"
 authors = ["Bigfoot"]
 description = "A lightweight animation and motion framework for Luau."
-repository = "https://github.com/Bigfootpp/lucid"
+repository = "https://github.com/Bigfootpp/sync"
 realm = "shared"
 exclude = ["**"]
 
