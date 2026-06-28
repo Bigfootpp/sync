@@ -14,6 +14,7 @@ function Blend1DSpace.New(
 	self.poses = poses or {}
 	self.fadeTime = fadeTime or 0.01
 	self.playing = false
+	self.x = 0
 
 	table.sort(self.poses, function(a: Types.Pose, b: Types.Pose)
 		return a.x < b.x
@@ -27,13 +28,13 @@ function Blend1DSpace:Update(x: number)
 	
 	if not object.playing or #object.poses == 0 then return end
 
-	x = math.clamp(x, object.poses[1].x, object.poses[#object.poses].x)
+	object.x = math.clamp(x, object.poses[1].x, object.poses[#object.poses].x)
 
 	local lowerPose: Types.Pose = object.poses[1]
 	local upperPose: Types.Pose = object.poses[1]
 	for i = 1, #object.poses - 1 do
 		local a, b = object.poses[i], object.poses[i + 1]
-		if x >= a.x and x <= b.x then
+		if object.x >= a.x and object.x <= b.x then
 			lowerPose, upperPose = a, b
 			break
 		end
@@ -47,7 +48,7 @@ function Blend1DSpace:Update(x: number)
 			weightLower = 1
 			weightUpper = MINIMUM_WEIGHT
 		else
-			weightUpper = (x - lowerPose.x) / range
+			weightUpper = (object.x - lowerPose.x) / range
 			weightLower = 1 - weightUpper
 		end
 	end
@@ -71,8 +72,7 @@ function Blend1DSpace:Play(fadeTime: number?, weight: number?, speed: number?)
 	end
 	
 	object.playing = true
-
-	object:Update(0)
+	object:Update(object.x)
 end
 
 function Blend1DSpace:Stop(fadeTime: number?)
