@@ -51,7 +51,7 @@ function StateMachine:Update(dt: number)
 	object.stateManager:Update(dt)
 end
 
-function StateMachine:Reset()
+function StateMachine:Restart()
 	local object = self :: Types.StateMachineClass
 	
 	object.stateManager:ChangeState(object.startingStateName)

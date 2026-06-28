@@ -91,7 +91,7 @@ export type StateMachineClass = {
 	GetCurrentStateLink: (self: StateMachineClass) -> {LinkClass}?,
 	AddLink: (self: StateMachineClass, link: LinkClass) -> (),
     Update: (self: StateMachineClass, dt: number) -> (),
-    Reset: (self: StateMachineClass) -> ()
+    Restart: (self: StateMachineClass) -> ()
 }
 
 

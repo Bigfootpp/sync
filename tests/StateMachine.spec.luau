@@ -83,7 +83,7 @@ return function(): boolean | string
 	end
 
 	-- 8. Test Reset
-	sm:Reset()
+	sm:Restart()
 	if manager:GetCurrentState() ~= stateA then
 		return "Expected current state to be reset back to A"
 	end
