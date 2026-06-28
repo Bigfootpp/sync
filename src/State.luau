@@ -9,25 +9,16 @@ local State = {}
 State.__index = State
 
 function State.New(
-	name: string,
-	transitions: {Types.LinkClass}?
+	name: string
 ): Types.StateClass
 	local self = setmetatable({}, State) :: Types.StateClass
 	self.name = name
-
-	self.transitions = transitions or {}
 	
 	self.Entered = Signal.new()
 	self.Exited = Signal.new()
 	self.Updated = Signal.new()
 
 	return self
-end
-
-function State:GetTransitions(): {Types.LinkClass}
-	local stateObject = self :: Types.StateClass
-	
-	return stateObject.transitions
 end
 
 function State:Enter()

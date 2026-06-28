@@ -37,25 +37,24 @@ export type BlendSpace1DClass = {
 }
 
 export type LinkClass = {
+	from: StateClass,
 	to: StateClass,
 	_canPassFn: () -> boolean,
 
-	CreateConditionnalTransition: (to: StateClass, canPassFn: () -> boolean) -> LinkClass,
-	CreateAutomaticTransition: (to: StateClass, anim: BaseAnimation) -> LinkClass,
+	ConditionnalLink: (from: StateClass, to: StateClass, canPassFn: () -> boolean) -> LinkClass,
+	AutomaticLink: (from: StateClass, to: StateClass, anim: BaseAnimation) -> LinkClass,
 
 	CanPassFn: (self: LinkClass) -> boolean,
 }
 
 export type StateClass = {
 	name: string,
-	transitions: {LinkClass},
 
-    New: (name: string, transition: {LinkClass}) -> StateClass,
+    New: (name: string) -> StateClass,
 	Entered: Signal<>,
 	Exited: Signal<>,
 	Updated: Signal<number>,
 
-	GetTransitions: (self: StateClass) -> {LinkClass},
 	Enter: (self: StateClass) -> (),
 	Exit: (self: StateClass) -> (),
 	Update: (self: StateClass, dt: number) -> (),
@@ -74,9 +73,7 @@ export type StateManagerClass = {
 	RegisterState: (self: StateManagerClass, state: StateClass) -> (),
 	GetState: (self: StateManagerClass, stateName: string) -> StateClass?,
 	GetStates: (self: StateManagerClass) -> {StateClass},
-	AddTransition: (self: StateManagerClass, stateName: string, transition: LinkClass) -> (),
 	GetCurrentState: (self: StateManagerClass) -> StateClass?,
-	GetCurrentStateTransitions: (self: StateManagerClass) -> {LinkClass}?,
 	ChangeState: (self: StateManagerClass, stateName: string) -> (),
 	Update: (self: StateManagerClass, dt: number) -> (),
 	Stop: (self: StateManagerClass) -> (),
@@ -86,8 +83,11 @@ export type StateManagerClass = {
 export type StateMachineClass = {
 	startingStateName: string,
 	stateManager: StateManagerClass,
+	links: {[StateClass]: {LinkClass}},
 
-    New: (stateManager: StateManagerClass, startingStateName: string) -> StateMachineClass,
+    New: (stateManager: StateManagerClass, startingState: StateClass) -> StateMachineClass,
+	GetCurrentStateLink: (self: StateMachineClass) -> {LinkClass}?,
+	AddLink: (self: StateMachineClass, link: LinkClass) -> (),
     Update: (self: StateMachineClass, dt: number) -> (),
     Reset: (self: StateMachineClass) -> ()
 }

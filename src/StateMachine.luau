@@ -4,24 +4,46 @@ local Types = require(script.Parent.Types)
 local StateMachine = {}
 StateMachine.__index = StateMachine
 
-function StateMachine.New(stateManager: Types.StateManagerClass, startingStateName: string): Types.StateMachineClass
+function StateMachine.New(stateManager: Types.StateManagerClass, startingState: Types.StateClass): Types.StateMachineClass
 	local self = setmetatable({}, StateMachine) :: Types.StateMachineClass
 	self.stateManager = stateManager
-	self.startingStateName = startingStateName
+	self.links = {}
+	self.startingStateName = startingState.name
 
-	stateManager:ChangeState(startingStateName)
+	stateManager:ChangeState(startingState.name)
 	return self
+end
+
+function StateMachine:AddLink(link: Types.LinkClass)
+	local object = self :: Types.StateMachineClass
+
+	if not object.links[link.from] then
+		object.links[link.from] = {link}
+	else
+		table.insert(object.links[link.from], link)
+	end
+end
+
+function StateMachine:GetCurrentStateLink(): {Types.LinkClass}?
+	local object = self :: Types.StateMachineClass
+
+	local currentState = object.stateManager:GetCurrentState()
+	if currentState then
+		return object.links[currentState]
+	else
+		return nil
+	end
 end
 
 function StateMachine:Update(dt: number)
 	local object = self :: Types.StateMachineClass
 	
-	local transitions = object.stateManager:GetCurrentStateTransitions()
-	if not transitions then return end
+	local links = object:GetCurrentStateLink()
+	if not links then return end
 
-	for _, transition in transitions do
-		if transition:CanPassFn() then
-			object.stateManager:ChangeState(transition.to.name)
+	for _, link in links do
+		if link:CanPassFn() then
+			object.stateManager:ChangeState(link.to.name)
 			break
 		end
 	end

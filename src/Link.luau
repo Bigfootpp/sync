@@ -3,17 +3,18 @@ local Types = require(script.Parent.Types)
 local Link = {}
 Link.__index = Link
 
-function Link.ConditionalLink(to: Types.StateClass, canPassFn: () -> boolean): Types.LinkClass
+function Link.ConditionalLink(from: Types.StateClass, to: Types.StateClass, canPassFn: () -> boolean): Types.LinkClass
     local self = setmetatable({}, Link) :: Types.LinkClass
 
+	self.from = from
     self.to = to
 	self._canPassFn = canPassFn
 
 	return self
 end
 
-function Link.AutomaticLink(to: Types.StateClass, anim: Types.BaseAnimation) : Types.LinkClass
-	return Link.ConditionalLink(to, function(): boolean
+function Link.AutomaticLink(from: Types.StateClass, to: Types.StateClass, anim: Types.BaseAnimation) : Types.LinkClass
+	return Link.ConditionalLink(from, to, function(): boolean
 		return not anim:IsPlaying()
 	end)
 end
