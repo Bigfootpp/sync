@@ -14,7 +14,7 @@ A lightweight animation and motion framework for Luau and Roblox.
 Add to your `wally.toml`:
 
 ```toml
-Sync = "bigfootpp/sync@0.1.0"
+Sync = "bigfootpp/sync@0.2.0"
 ```
 
 ---
