@@ -39,28 +39,10 @@ function StateManager:GetStates(): {Types.StateClass}
     return object.states
 end
 
-function StateManager:AddTransitions(stateName: string, transition: Types.TransitionClass) 
-    local object = self :: Types.StateManagerClass
-
-    local class = object:GetState(stateName)
-
-    if class then 
-        table.insert(class.transitions, transition)
-    end
-end
-
 function StateManager:GetCurrentState(): Types.StateClass?
     local object = self :: Types.StateManagerClass
 
     return object.currentState
-end
-
-function StateManager:GetCurrentStateTransitions(): {Types.TransitionClass}?
-    local object = self :: Types.StateManagerClass
-
-    if not object.currentState then return nil end
-
-    return object.currentState.transitions
 end
 
 function StateManager:ChangeState(stateName: string)

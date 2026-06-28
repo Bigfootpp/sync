@@ -29,6 +29,8 @@ export type BlendSpace1DClass = {
 	poses: {Pose},
 	fadeTime: number,
 	playing: boolean,
+	x: number,
+
 	New: (poses: {Pose}, fadeTime: number?) -> BlendSpace1DClass,
 	Update: (self: BlendSpace1DClass, x: number) -> (),
 	Play: (self: BlendSpace1DClass, fadeTime: number?, weight: number?, speed: number?) -> (),
@@ -36,27 +38,25 @@ export type BlendSpace1DClass = {
 	IsPlaying: (self: BlendSpace1DClass) -> boolean,
 }
 
-export type TransitionClass = {
+export type LinkClass = {
+	from: StateClass,
 	to: StateClass,
 	_canPassFn: () -> boolean,
 
-	_New: (to: StateClass, canPassFn: () -> boolean) -> TransitionClass,
-	CreateConditionnalTransition: (to: StateClass, canPassFn: () -> boolean) -> TransitionClass,
-	CreateAutomaticTransition: (to: StateClass, anim: BaseAnimation) -> TransitionClass,
+	ConditionnalLink: (from: StateClass, to: StateClass, canPassFn: () -> boolean) -> LinkClass,
+	AutomaticLink: (from: StateClass, to: StateClass, anim: BaseAnimation) -> LinkClass,
 
-	CanPassFn: (self: TransitionClass) -> boolean,
+	CanPassFn: (self: LinkClass) -> boolean,
 }
 
 export type StateClass = {
 	name: string,
-	transitions: {TransitionClass},
 
-    New: (name: string, transition: {TransitionClass}) -> StateClass,
+    New: (name: string) -> StateClass,
 	Entered: Signal<>,
 	Exited: Signal<>,
 	Updated: Signal<number>,
 
-	GetTransitions: (self: StateClass) -> {TransitionClass},
 	Enter: (self: StateClass) -> (),
 	Exit: (self: StateClass) -> (),
 	Update: (self: StateClass, dt: number) -> (),
@@ -75,9 +75,7 @@ export type StateManagerClass = {
 	RegisterState: (self: StateManagerClass, state: StateClass) -> (),
 	GetState: (self: StateManagerClass, stateName: string) -> StateClass?,
 	GetStates: (self: StateManagerClass) -> {StateClass},
-	AddTransitions: (self: StateManagerClass, stateName: string, transition: TransitionClass) -> (),
 	GetCurrentState: (self: StateManagerClass) -> StateClass?,
-	GetCurrentStateTransitions: (self: StateManagerClass) -> {TransitionClass}?,
 	ChangeState: (self: StateManagerClass, stateName: string) -> (),
 	Update: (self: StateManagerClass, dt: number) -> (),
 	Stop: (self: StateManagerClass) -> (),
@@ -87,10 +85,13 @@ export type StateManagerClass = {
 export type StateMachineClass = {
 	startingStateName: string,
 	stateManager: StateManagerClass,
+	links: {[StateClass]: {LinkClass}},
 
-    New: (stateManager: StateManagerClass, startingStateName: string) -> StateMachineClass,
+    New: (stateManager: StateManagerClass, startingState: StateClass) -> StateMachineClass,
+	GetCurrentStateLink: (self: StateMachineClass) -> {LinkClass}?,
+	AddLink: (self: StateMachineClass, link: LinkClass) -> (),
     Update: (self: StateMachineClass, dt: number) -> (),
-    Reset: (self: StateMachineClass) -> ()
+    Restart: (self: StateMachineClass) -> ()
 }
 
 
